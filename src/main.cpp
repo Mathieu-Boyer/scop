@@ -1,23 +1,7 @@
 #include "main.hpp"
 
-const char *vertexShaderSource = 
-"#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"layout (location = 1) in vec3 aColor;\n"
 
-"out vec3 myColor;\n"
-"void main(){"
-"gl_Position = vec4(aPos, 1.0);\n"
-"myColor = aColor;\n"
-"}\0";
 
-const char *fragmentShaderSource = 
-"#version 330 core\n"
-"in vec3 myColor;\n"
-"out vec4 fragColor;\n"
-"void main(){"
-"fragColor = vec4(myColor, 1.0);"
-"}\0";
 
 const GLfloat verticies[] = {
 
@@ -28,33 +12,19 @@ const GLfloat verticies[] = {
 };
 
 int main (){
-    glfwInit();
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    try {
+        glfwInit();
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-
-    GLFWwindow *window = glfwCreateWindow(800, 800, "Scop", NULL, NULL);
-
-    if (!window){
-        std::cerr << "Window couldn't be openned\n";
-        glfwTerminate();
-    }
-
-    glfwMakeContextCurrent(window);
-
-    GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertexShader, 1, &vertexShaderSource, NULL);
-    glCompileShader(vertexShader);
-
-    GLuint fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
-    glCompileShader(fragmentShader);
-
-    GLuint shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertexShader);
-    glAttachShader(shaderProgram, fragmentShader);
-    glLinkProgram(shaderProgram);
+        GLFWwindow *window = glfwCreateWindow(800, 800, "Scop", NULL, NULL);
+        if (!window){
+            std::cerr << "Window couldn't be openned\n";
+            glfwTerminate();
+        }
+        glfwMakeContextCurrent(window);
+        Shaders shaders("shaders/vertex.glsl", "shaders/fragment.glsl");
 
 
     GLuint VBO, VAO;
@@ -70,7 +40,7 @@ int main (){
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6 ,(void *)0);
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6 ,(void *)(sizeof(float) * 3));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6 , (void *)(sizeof(float) * 3));
     glEnableVertexAttribArray(1);
 
 
@@ -79,7 +49,7 @@ int main (){
         glClearColor(.1, .2, .4, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
 
-        glUseProgram(shaderProgram);
+        shaders.use();
         glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0,3);
 
@@ -88,4 +58,7 @@ int main (){
 
     glfwDestroyWindow(window);
     glfwTerminate();
+    } catch (std::exception &err){
+        std::cerr << err.what() << "\n";
+    }
 }
