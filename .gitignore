@@ -36,6 +36,7 @@
 *.exe
 *.out
 *.app
+scop
 
 # debug information files
 *.dwo
@@ -44,4 +45,4 @@
 .vscode
 
 # exec
-scop
+build
