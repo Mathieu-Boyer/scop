@@ -22,7 +22,12 @@ private:
 public:
     Shaders(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
     ~Shaders();
-    
+
+    Shaders(const Shaders&) = delete;
+    Shaders& operator=(const Shaders&) = delete;
+
+    Shaders(Shaders&&) = default;
+    Shaders& operator=(Shaders&&) = default;
     void use();
 };
 
