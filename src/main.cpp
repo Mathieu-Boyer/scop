@@ -3,21 +3,28 @@
 const char *vertexShaderSource = 
 "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
+"layout (location = 1) in vec3 aColor;\n"
+
+"out vec3 myColor;\n"
 "void main(){"
-"gl_Position = vec4(aPos, 1.0);"
+"gl_Position = vec4(aPos, 1.0);\n"
+"myColor = aColor;\n"
 "}\0";
 
 const char *fragmentShaderSource = 
 "#version 330 core\n"
+"in vec3 myColor;\n"
 "out vec4 fragColor;\n"
 "void main(){"
-"fragColor = vec4(.1, .2, .8, 1.0);"
+"fragColor = vec4(myColor, 1.0);"
 "}\0";
 
 const GLfloat verticies[] = {
-    -0.5f, -0.5f, 0.0f,
-    0.5f, -0.5f, 0.0f,
-    0.0f, 0.5f , 0.0f
+
+    // pos --------------------- color
+    -0.5f, -0.5f, 0.0f,          1,0,0,
+    0.5f, -0.5f, 0.0f,           0,1,0,
+    0.0f, 0.5f , 0.0f,           0,0,1
 };
 
 int main (){
@@ -59,8 +66,12 @@ int main (){
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(verticies), verticies, GL_STATIC_DRAW);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3 ,(void *)0);
+
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6 ,(void *)0);
     glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 6 ,(void *)(sizeof(float) * 3));
+    glEnableVertexAttribArray(1);
 
 
     while(!glfwWindowShouldClose(window)){
