@@ -36,6 +36,13 @@
 *.exe
 *.out
 *.app
+scop
 
 # debug information files
 *.dwo
+
+# vscode
+.vscode
+
+# exec
+build
