@@ -1,5 +1,6 @@
-#define GL_SILENCE_DEPRECATION
-#include <OpenGL/gl3.h>
-#include "GLFW/glfw3.h"
+#pragma once
+
 #include <iostream>
 #include "Shaders.hpp"
+#include "GLApp.hpp"
+#include <memory>

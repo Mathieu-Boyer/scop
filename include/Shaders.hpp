@@ -19,10 +19,19 @@ private:
     std::string vertexShaderFileContent;
     std::string fragmentShaderFileContent;
 
+
 public:
     Shaders(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
     ~Shaders();
-    
+
+    Shaders(const Shaders&) = delete;
+    Shaders& operator=(const Shaders&) = delete;
+
+    Shaders(Shaders&&) = default;
+    Shaders& operator=(Shaders&&) = default;
     void use();
+    void setBool(const std::string &name, bool value) const;
+    void setInt(const std::string &name, int value) const;
+    void setFloat(const std::string &name, float value) const;
 };
 
