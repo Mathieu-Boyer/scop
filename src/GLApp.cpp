@@ -1,8 +1,8 @@
 #include "GLApp.hpp"
 const GLfloat verticies[] = {
-    -0.5f, -0.5f, 0.0f,          1,0,0,
-    0.5f, -0.5f, 0.0f,           0,1,0,
-    0.0f, 0.5f , 0.0f,           0,0,1
+    -0.5f, -0.5f, 0.0f,          0,0,0,
+    0.5f, -0.5f, 0.0f,           0,0,0,
+    0.0f, 0.5f , 0.0f,           0,0,0
 };
 GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
         glfwInit();
@@ -17,7 +17,6 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
         }
         glfwMakeContextCurrent(window);
 }
-
 
 void GLApp::setShaders(std::unique_ptr<Shaders> shaders){
     _shaders = std::move(shaders);
@@ -45,6 +44,13 @@ void GLApp::render(){
         glfwPollEvents();
         glClearColor(.1, .2, .4, 1.0);
         glClear(GL_COLOR_BUFFER_BIT);
+
+
+        float time = glfwGetTime();
+
+        _shaders->setFloat("R", (sin(time * 0.5)/2) + 0.5);
+        _shaders->setFloat("G", (sin(time)/2) + 0.5);
+        _shaders->setFloat("B", (sin(time * 2)/2) + 0.5);
 
         _shaders->use();
         glBindVertexArray(VAO);
