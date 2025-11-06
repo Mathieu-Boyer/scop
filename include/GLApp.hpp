@@ -4,7 +4,7 @@
 #include "GLFW/glfw3.h"
 #include <memory>
 #include "Shaders.hpp"
-#include "PPMParser.hpp"
+#include "Texture.hpp"
 
 
 class GLApp
