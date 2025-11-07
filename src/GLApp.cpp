@@ -31,7 +31,10 @@ void GLApp::setShaders(std::unique_ptr<Shaders> shaders){
     _shaders = std::move(shaders);
 }
 
+
+
 void GLApp::render(){
+
 
     GLuint VBO, VAO , EBO;
 
@@ -65,6 +68,13 @@ void GLApp::render(){
         glClear(GL_COLOR_BUFFER_BIT);
 
         float time = glfwGetTime();
+
+        glm::mat4 trans = glm::mat4(1.0f);
+        trans = glm::rotate(trans, (float)glfwGetTime(), glm::vec3(0.0, 0.0, 1.0));
+        trans = glm::scale(trans, glm::vec3(2, 1, 0));
+
+        unsigned int transformLoc = glGetUniformLocation(_shaders->getProgramID(), "transform");
+        glUniformMatrix4fv(transformLoc, 1, GL_FALSE, glm::value_ptr(trans));
 
         _shaders->setFloat("R", (sin(time * 0.5)/2) + 0.5);
         _shaders->setFloat("G", (sin(time)/2) + 0.5);
