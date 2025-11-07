@@ -7,9 +7,11 @@ out vec3 myColor;
 uniform float R;
 uniform float G;
 uniform float B;
+uniform mat4 transform;
 
-void main(){
-    gl_Position = vec4(aPos, 1.0);
+void main()
+{
+    gl_Position = transform * vec4(aPos, 1.0f);
     myTextCoor = myTextCoor = vec2(aText.x, 1.0 - aText.y);
     myColor = vec3(R, G, B);
 }
