@@ -1,46 +1,97 @@
 #include "GLApp.hpp"
-float vertices[] = {
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+#include "Mesh.hpp"
+// static float vertices[] = {
+//     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+//      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+//      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//      0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+//     -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
 
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//     -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//      0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//      0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//      0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
 
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+//      0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+//      0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//      0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+//     -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+//     -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
 
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-     0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-     0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-    -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-    -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+//     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+//      0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//      0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+//     -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+//     -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+// };
+
+std::vector<vertex> vertices = {
+    // Back face
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 0.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 0.0f}},
+
+    // Front face
+    {{-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f}},
+    {{ 0.5f, -0.5f, 0.5f}, {1.0f, 0.0f}},
+    {{ 0.5f,  0.5f, 0.5f}, {1.0f, 1.0f}},
+    {{ 0.5f,  0.5f, 0.5f}, {1.0f, 1.0f}},
+    {{-0.5f,  0.5f, 0.5f}, {0.0f, 1.0f}},
+    {{-0.5f, -0.5f, 0.5f}, {0.0f, 0.0f}},
+
+    // Left face
+    {{-0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 0.0f}},
+    {{-0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+
+    // Right face
+    {{ 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {0.0f, 0.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+
+    // Bottom face
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{ 0.5f, -0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{ 0.5f, -0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{-0.5f, -0.5f,  0.5f}, {0.0f, 0.0f}},
+    {{-0.5f, -0.5f, -0.5f}, {0.0f, 1.0f}},
+
+    // Top face
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f}},
+    {{ 0.5f,  0.5f, -0.5f}, {1.0f, 1.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{ 0.5f,  0.5f,  0.5f}, {1.0f, 0.0f}},
+    {{-0.5f,  0.5f,  0.5f}, {0.0f, 0.0f}},
+    {{-0.5f,  0.5f, -0.5f}, {0.0f, 1.0f}}
 };
 
 GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
@@ -68,25 +119,9 @@ void GLApp::setShaders(std::unique_ptr<Shaders> shaders){
 
 void GLApp::render(){
 
-    GLuint VBO, VAO;
-
-    glGenVertexArrays(1, &VAO);
-    glGenBuffers(1, &VBO);
-
-    glBindVertexArray(VAO);
-    glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void *)0);
-    glEnableVertexAttribArray(0);
-
-    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(float) * 5, (void *)(sizeof(float) * 3));
-    glEnableVertexAttribArray(2);
-
-
     Texture texture("textures/brickwall1.ppm");
 
+    Mesh cube(vertices);
 
     glm::mat4 view = glm::mat4(1.0f);
     view = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f));
@@ -102,9 +137,9 @@ void GLApp::render(){
         float time = glfwGetTime();
         _shaders->use();
 
-        _shaders->setFloat("R", (sin(time * 0.5)/2) + 0.5);
-        _shaders->setFloat("G", (sin(time)/2) + 0.5);
-        _shaders->setFloat("B", (sin(time * 2)/2) + 0.5);
+        // _shaders->setFloat("R", (sin(time * 0.5)/2) + 0.5);
+        // _shaders->setFloat("G", (sin(time)/2) + 0.5);
+        // _shaders->setFloat("B", (sin(time * 2)/2) + 0.5);
 
 
         glm::mat4 model = glm::mat4(1.0f);
@@ -119,9 +154,7 @@ void GLApp::render(){
         unsigned int projectionLoc = glGetUniformLocation(_shaders->getProgramID(), "projection");
         glUniformMatrix4fv(projectionLoc, 1, GL_FALSE, glm::value_ptr(projection));
 
-        glBindVertexArray(VAO);
-
-        glDrawArrays(GL_TRIANGLES, 0, 36);
+        cube.draw();
 
         glfwSwapBuffers(window);
     }
