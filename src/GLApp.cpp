@@ -1,6 +1,7 @@
 #include "GLApp.hpp"
 #include "Mesh.hpp"
 #include "Camera.hpp"
+#include "transform.hpp"
 // static float vertices[] = {
 //     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 //      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -126,7 +127,8 @@ void GLApp::render(){
     Camera camera(glm::vec3(0.0f, 0.0f, 3.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
-
+    transform cubeTransform;
+    int speed = 10;
     while(!glfwWindowShouldClose(window)){
 
         glfwPollEvents();
@@ -134,11 +136,14 @@ void GLApp::render(){
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         float time = glfwGetTime();
-        _shaders->use();
 
-        glm::mat4 model = glm::mat4(1.0f);
-        model = glm::rotate(model, time, glm::vec3(.75f, .5f, .25f));
-        _shaders->setMat4("model", model);
+        cubeTransform.translation = {0,(sin(time /2)), 0};
+
+        cubeTransform.scale = {(sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f};
+        cubeTransform.rotation = {0,time * speed, 0};
+
+        _shaders->use();
+        _shaders->setMat4("model", cubeTransform.getModelMatrix());
         _shaders->setMat4("view", view);
         _shaders->setMat4("projection", projection);
 
