@@ -16,12 +16,10 @@ public:
     Texture(const Texture&) = delete;
     Texture& operator=(const Texture&) = delete;
     ~Texture();
-
     void bind(unsigned int unit = 0) const;
     int getWidth() const;
     int getHeight() const;
     GLuint getID() const;
-
     static void unbind();
 };
 
