@@ -1,5 +1,6 @@
 #include "GLApp.hpp"
 #include "Mesh.hpp"
+#include "Camera.hpp"
 // static float vertices[] = {
 //     -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
 //      0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -122,11 +123,9 @@ void GLApp::render(){
     Mesh cube(vertices);
     Texture brickTexture("textures/brickwall1.ppm");
 
-    glm::mat4 view = glm::mat4(1.0f);
-    view = glm::translate(view, glm::vec3(0.0f, 0.0f, -4.0f));
-
-    glm::mat4 projection;
-    projection = glm::perspective(glm::radians(45.0f), 800.0f / 800.0f, 0.1f, 100.0f);
+    Camera camera(glm::vec3(0.0f, 0.0f, 3.f));
+    glm::mat4 view = camera.getViewMatrix();
+    glm::mat4 projection = camera.getProjectionMatrix();
 
     while(!glfwWindowShouldClose(window)){
 
