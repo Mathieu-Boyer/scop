@@ -9,12 +9,8 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <vector>
 #include <iostream>
-
-struct vertex
-{
-    glm::vec3 position;
-    glm::vec2 textureCoordinates;
-};
+#include "vertex.hpp"
+#include "OBJParser.hpp"
 
 
 class Mesh
@@ -23,8 +19,10 @@ class Mesh
         size_t vertexCount = 0;
         GLuint VAO = 0;
         GLuint VBO = 0;
+        GLuint VEO = 0;
+        OBJ objData;
     public:
-        Mesh(const std::vector<vertex> &vertices);
+        Mesh(const std::vector<vertex> &vertices, OBJ objedata);
         Mesh(Mesh &other) = delete;
         Mesh operator=(Mesh &other) = delete;
         ~Mesh();

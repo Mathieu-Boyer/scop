@@ -1,13 +1,25 @@
 #include "Mesh.hpp"
 
-Mesh::Mesh(const std::vector<vertex> &vertices) : vertexCount(vertices.size()){
+Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(vertices.size()), objData(objData){
+    std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";
+    for (auto &v : vertices){
+        std::cout << v.position.x << " " << v.position.y << " " << v.position.z <<  "            " << v.textureCoordinates.x << " " << v.textureCoordinates.y << "\n";
+
+    }
+
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
+    glGenBuffers(1, &VEO);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VEO);
 
+    std::cout << "banger\n";
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex) * vertexCount, &vertices[0], GL_STATIC_DRAW);
+    std::cout << "banger\n";
+
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * objData.drawIndices.size(), &objData.drawIndices[0], GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, position));
     glEnableVertexAttribArray(0);
@@ -18,7 +30,10 @@ Mesh::Mesh(const std::vector<vertex> &vertices) : vertexCount(vertices.size()){
 
 void Mesh::draw() const {
     glBindVertexArray(VAO);
-    glDrawArrays(GL_TRIANGLES, 0, vertexCount);
+    // std::cout << objData.positions.size() << "\n";
+    glDrawArrays(GL_TRIANGLES, 0, objData.drawIndices.size());
+
+    // glDrawElements(GL_TRIANGLES, objData.drawIndices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 

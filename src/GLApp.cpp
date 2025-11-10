@@ -116,10 +116,13 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
 
 
 void GLApp::render(){
+
+    OBJParser test("models/withTexture.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
     Texture brickTexture("textures/brickwall1.ppm");
-    Mesh cube(vertices);
-    Camera camera(glm::vec3(0.0f, 0.0f, 3.f));
+    Mesh cube(test.getVertices(), test.getObjData());
+
+    Camera camera(glm::vec3(0.0f, 0.0f, 10.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
