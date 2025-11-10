@@ -117,7 +117,8 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
 
 void GLApp::render(){
 
-    OBJParser test("models/withTexture.obj");
+    // OBJParser test("models/withTexture.obj");
+    OBJParser test("models/teapot.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
     Texture brickTexture("textures/brickwall1.ppm");
     Mesh cube(test.getVertices(), test.getObjData());

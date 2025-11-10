@@ -56,10 +56,13 @@ void OBJParser::convertToVectors(){
 
         while (word >> current){
             std::vector<std::string> position_textureCoordinates (split(current, '/'));
-            std::array<int, 2> faceVertex;
+            std::array<int, 2> faceVertex {-1,-1};
+
 
             faceVertex[0] = std::stoi(position_textureCoordinates[0] )- 1 ;
-            faceVertex[1] = std::stoi(position_textureCoordinates[1] )- 1;
+
+            if (position_textureCoordinates.size() == 2)
+                faceVertex[1] = std::stoi(position_textureCoordinates[1] )- 1;
             face.corners.push_back(faceVertex);
             objData.drawIndices.push_back(faceVertex[0]);
         }
@@ -115,8 +118,8 @@ void OBJParser::convertToVectors(){
         
     for (auto &vpos :  objData.positions)
         std::cout << vpos.x << " " << vpos.y << " " << vpos.z << "\n";
-    for (auto &vpos :  objData.textureCoordinates)
-        std::cout << vpos.x << " " << vpos.y << "\n";
+    // for (auto &vpos :  objData.textureCoordinates)
+    //     std::cout << vpos.x << " " << vpos.y << "\n";
 }
 
 
@@ -124,11 +127,16 @@ void OBJParser::createVertices(){
     for (auto &face : objData.faces){
         for (auto &corner : face.corners){
             vertex v;
+
+            
             v.position = objData.positions[corner[0]];
-            v.textureCoordinates = objData.textureCoordinates[corner[1]];
+            std::cout << "meow" << corner[1] <<  std::endl;
+            if (corner.at(1) > -1)
+                v.textureCoordinates = objData.textureCoordinates[corner[1]];
             vertices.push_back(v);
         }
     }
+
 }
 
 
