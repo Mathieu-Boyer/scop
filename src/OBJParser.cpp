@@ -13,6 +13,7 @@ OBJParser::OBJParser(const std::string &filePath)
             continue;
         std::istringstream word(line);
         std::string key;
+
         word >> key;
         if (line[0] == '#')
             continue;
@@ -20,7 +21,23 @@ OBJParser::OBJParser(const std::string &filePath)
         if (!value.empty() && value[0] == ' ')
             value.erase(0, 1);
 
-        _data[key].push_back(value);
+        if (key == "f"){
+            // _data[key].push_back(value);
+            unsigned int i = 0;
+            unsigned int j = 1;
+            unsigned int k = 2;
+
+            std::vector<std::string> indices = split(value, ' ');
+
+            while (k < indices.size()){
+                _data[key].push_back(indices[i] + " " + indices[j] + " " + indices[k]);
+                j++;
+                k++;
+            }
+        }
+        else
+            _data[key].push_back(value);
+
     }
 
     file.close();
@@ -68,8 +85,18 @@ void OBJParser::convertToVectors(){
         Xmax = std::max(Xmax, xyz[0]);
         Ymin = std::min(Ymin, xyz[1]);
         Ymax = std::max(Ymax, xyz[1]);
+        Zmin = std::min(Zmin, xyz[2]);
+        Zmax = std::max(Zmax, xyz[2]);
 
-        objData.positions.push_back(glm::vec3(xyz[0],xyz[1],xyz[2]));
+
+        objData.positions.push_back(glm::vec3(xyz[0],xyz[1] ,xyz[2]));
+    }
+
+
+    for (unsigned int i = 0; i < objData.positions.size(); i++){
+        objData.positions[i].x -= ((Xmin + Xmax) * .5f);
+        objData.positions[i].y -= ((Ymin + Ymax) * .5f);
+        objData.positions[i].z -= ((Zmin + Zmax) * .5f);
     }
     std::cout << Xmin << " " << Xmax << " " << Ymin << " " << Ymax << "\n";
     for (auto &str : _data["f"]){

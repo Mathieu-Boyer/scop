@@ -118,16 +118,18 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
 void GLApp::render(){
 
     // OBJParser test("models/withTexture.obj");
-    OBJParser test("models/teapot.obj");
+    OBJParser test("models/withTexture.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
     // Texture brickTexture("textures/brickwall1.ppm");
     Texture brickTexture("textures/wood.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
-    Camera camera(glm::vec3(0.0f, 2.0f, 10.f));
+    Camera camera(glm::vec3(0.0f, 0.0f, 10.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
+
+    // cubeInstance.getTransform().translation = {0,0,0};
     int speed = 50;
 
     while(!glfwWindowShouldClose(window)){
