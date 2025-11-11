@@ -123,19 +123,19 @@ void GLApp::render(){
     Texture brickTexture("textures/brickwall1.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 10.f));
+    Camera camera(glm::vec3(0.0f, 2.0f, 10.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
-    int speed = 10;
+    int speed = 50;
 
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
         glClearColor(.1, .2, .4, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
         float time = glfwGetTime();
-        cubeInstance.getTransform().translation = {0,(sin(time /2)), 0};
-        cubeInstance.getTransform().scale = {(sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f};
+        // cubeInstance.getTransform().translation = {0,(sin(time /2)), 0};
+        // cubeInstance.getTransform().scale = {(sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f, (sin(time) / 2) + 1.f};
         cubeInstance.getTransform().rotation = {0,time * speed, 0};
         shader.use();
         shader.setMat4("view", view);
