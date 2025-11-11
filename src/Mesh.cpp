@@ -15,16 +15,17 @@ Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(verti
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VEO);
 
-    std::cout << "banger\n";
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex) * vertexCount, &vertices[0], GL_STATIC_DRAW);
-    std::cout << "banger\n";
 
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(unsigned int) * objData.drawIndices.size(), &objData.drawIndices[0], GL_STATIC_DRAW);
 
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, position));
     glEnableVertexAttribArray(0);
 
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, textureCoordinates));
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, color));
+    glEnableVertexAttribArray(0);
+
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, textureCoordinates));
     glEnableVertexAttribArray(1);
 }
 

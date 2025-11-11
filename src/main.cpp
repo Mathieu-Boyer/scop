@@ -10,4 +10,11 @@ int main (){
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
     }
+
+    // OBJParser parse("models/teapot.obj");
+
+    // for (int i = 0; i < 1000; i++){
+
+    //     // std::cout << newGrey << " " << i << "\n";
+    // }
 }
