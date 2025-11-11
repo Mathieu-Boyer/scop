@@ -1,8 +1,9 @@
 #version 330 core
 layout (location = 0) in vec3 aPos;
-// layout (location = 1) in vec3 aColor;
-layout (location = 1) in vec2 aText;
+layout (location = 1) in vec3 aColor;
+layout (location = 2) in vec2 aText;
 out vec2 myTextCoor;
+out vec4 myColor;
 uniform mat4 transform;
 
 uniform mat4 model;
@@ -12,5 +13,6 @@ uniform mat4 projection;
 void main()
 {
     gl_Position = projection * view * model * vec4(aPos, 1.0);
-    myTextCoor = myTextCoor = vec2(aText.x, 1.0 - aText.y);
+    myTextCoor = vec2(aText.x, 1.0 - aText.y);
+    myColor = vec4(aColor, 1.0);
 }

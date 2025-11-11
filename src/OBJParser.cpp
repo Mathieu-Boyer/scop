@@ -162,10 +162,17 @@ void OBJParser::convertToVectors(){
 
 
 void OBJParser::createVertices(){
+    unsigned int i = 0;
     for (auto &face : objData.faces){
+        unsigned int j = 0;
+
+        float faceColor = .3f + ((float)(i%50)/100);
+
         for (auto &corner : face.corners){
+            
             vertex vert;
 
+            float vertexColor = faceColor + (((float)(j) / 10) - 0.1);
             
             vert.position = objData.positions[corner[0]];
             // std::cout << "meow" << corner[1] <<  std::endl;
@@ -176,8 +183,12 @@ void OBJParser::createVertices(){
                 float v = (vert.position.y - Ymin) / (Ymax - Ymin);
                 vert.textureCoordinates = glm::vec2(u,v);
             }
+
+            vert.color = glm::vec3(vertexColor, vertexColor , vertexColor);
             vertices.push_back(vert);
+            j++;
         }
+        i++;
     }
 
 }
