@@ -26,6 +26,11 @@ struct OBJ {
 class OBJParser
 {
     private:
+        float Xmin = +INFINITY;
+        float Xmax = -INFINITY;
+
+        float Ymin = +INFINITY;
+        float Ymax = -INFINITY;
         std::map<std::string, std::vector<std::string>> _data;
         OBJ objData;
         std::vector<vertex> vertices;
