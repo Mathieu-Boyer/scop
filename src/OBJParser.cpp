@@ -88,6 +88,7 @@ void OBJParser::convertToVectors(){
 
             if (position_textureCoordinates.size() == 2)
                 faceVertex[1] = std::stoi(position_textureCoordinates[1] )- 1;
+
             face.corners.push_back(faceVertex);
             objData.drawIndices.push_back(faceVertex[0]);
         }
@@ -136,14 +137,19 @@ void OBJParser::convertToVectors(){
 void OBJParser::createVertices(){
     for (auto &face : objData.faces){
         for (auto &corner : face.corners){
-            vertex v;
+            vertex vert;
 
             
-            v.position = objData.positions[corner[0]];
+            vert.position = objData.positions[corner[0]];
             // std::cout << "meow" << corner[1] <<  std::endl;
             if (corner.at(1) > -1)
-                v.textureCoordinates = objData.textureCoordinates[corner[1]];
-            vertices.push_back(v);
+                vert.textureCoordinates = objData.textureCoordinates[corner[1]];
+            else {
+                float u = (vert.position.x - Xmin) / (Xmax - Xmin); 
+                float v = (vert.position.y - Ymin) / (Ymax - Ymin);
+                vert.textureCoordinates = glm::vec2(u,v);
+            }
+            vertices.push_back(vert);
         }
     }
 

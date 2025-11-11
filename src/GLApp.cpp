@@ -120,7 +120,8 @@ void GLApp::render(){
     // OBJParser test("models/withTexture.obj");
     OBJParser test("models/teapot.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
-    Texture brickTexture("textures/brickwall1.ppm");
+    // Texture brickTexture("textures/brickwall1.ppm");
+    Texture brickTexture("textures/wood.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
     Camera camera(glm::vec3(0.0f, 2.0f, 10.f));
