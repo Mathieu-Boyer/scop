@@ -1,11 +1,11 @@
 #include "Mesh.hpp"
 
 Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(vertices.size()), objData(objData){
-    std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";
-    for (auto &v : vertices){
-        std::cout << v.position.x << " " << v.position.y << " " << v.position.z <<  "            " << v.textureCoordinates.x << " " << v.textureCoordinates.y << "\n";
+    // std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";
+    // for (auto &v : vertices){
+    //     std::cout << v.position.x << " " << v.position.y << " " << v.position.z <<  "            " << v.textureCoordinates.x << " " << v.textureCoordinates.y << "\n";
 
-    }
+    // }
 
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);

@@ -47,6 +47,31 @@ std::vector<std::string> OBJParser::split(const std::string& str, char delim) {
 }
 
 void OBJParser::convertToVectors(){
+
+
+
+    for (auto &str : _data["v"]){
+        float xyz[3];
+        int wordCounter = 0;
+        float current;
+        std::istringstream word(str);
+
+        while (word >> current && wordCounter < 3){
+            xyz[wordCounter] = current;
+            wordCounter++;
+        }
+
+        if (word.eof() && wordCounter != 3)
+            throw std::runtime_error("Not enough coordinates given for vertex position.");
+
+        Xmin = std::min(Xmin, xyz[0]);
+        Xmax = std::max(Xmax, xyz[0]);
+        Ymin = std::min(Ymin, xyz[1]);
+        Ymax = std::max(Ymax, xyz[1]);
+
+        objData.positions.push_back(glm::vec3(xyz[0],xyz[1],xyz[2]));
+    }
+    std::cout << Xmin << " " << Xmax << " " << Ymin << " " << Ymax << "\n";
     for (auto &str : _data["f"]){
         Face face;
         // int wordCounter = 0;
@@ -75,21 +100,6 @@ void OBJParser::convertToVectors(){
         // objData.faces.push_back(xyz[2] - 1);
     }
 
-    for (auto &str : _data["v"]){
-        float xyz[3];
-        int wordCounter = 0;
-        float current;
-        std::istringstream word(str);
-
-        while (word >> current && wordCounter < 3){
-            xyz[wordCounter] = current;
-            wordCounter++;
-        }
-
-        if (word.eof() && wordCounter != 3)
-            throw std::runtime_error("Not enough coordinates given for vertex position.");
-        objData.positions.push_back(glm::vec3(xyz[0],xyz[1],xyz[2]));
-    }
 
     for (auto &str : _data["vt"]){
         float xy[2];
@@ -116,8 +126,8 @@ void OBJParser::convertToVectors(){
     //     std::cout << "\n";
     // }
         
-    for (auto &vpos :  objData.positions)
-        std::cout << vpos.x << " " << vpos.y << " " << vpos.z << "\n";
+    // for (auto &vpos :  objData.positions)
+    //     std::cout << vpos.x << " " << vpos.y << " " << vpos.z << "\n";
     // for (auto &vpos :  objData.textureCoordinates)
     //     std::cout << vpos.x << " " << vpos.y << "\n";
 }
@@ -130,7 +140,7 @@ void OBJParser::createVertices(){
 
             
             v.position = objData.positions[corner[0]];
-            std::cout << "meow" << corner[1] <<  std::endl;
+            // std::cout << "meow" << corner[1] <<  std::endl;
             if (corner.at(1) > -1)
                 v.textureCoordinates = objData.textureCoordinates[corner[1]];
             vertices.push_back(v);
