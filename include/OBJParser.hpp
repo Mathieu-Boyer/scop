@@ -31,6 +31,10 @@ class OBJParser
 
         float Ymin = +INFINITY;
         float Ymax = -INFINITY;
+
+        float Zmin = +INFINITY;
+        float Zmax = -INFINITY;
+
         std::map<std::string, std::vector<std::string>> _data;
         OBJ objData;
         std::vector<vertex> vertices;
