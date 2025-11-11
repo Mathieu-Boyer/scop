@@ -184,7 +184,7 @@ void OBJParser::createVertices(){
                 vert.textureCoordinates = glm::vec2(u,v);
             }
 
-            vert.color = glm::vec3(vertexColor, vertexColor , vertexColor);
+            vert.color = glm::vec3(vertexColor, vertexColor, vertexColor);
             vertices.push_back(vert);
             j++;
         }
