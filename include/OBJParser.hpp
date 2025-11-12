@@ -12,7 +12,7 @@
 
 
 struct Face {
-    std::vector<std::array<int,2>> corners;
+    std::vector<std::array<int,3>> corners;
 };
 
 struct OBJ {

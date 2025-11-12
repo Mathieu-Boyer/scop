@@ -2,6 +2,17 @@
 #include <iostream>
 #include <sstream>
 
+////// move to utils later ///
+
+
+int count(char toCount, const std::string& src){
+    int counter = 0;
+    for (auto &c : src)
+        if (c == toCount) counter++;
+
+    return counter;
+}
+
 OBJParser::OBJParser(const std::string &filePath)
 {
 
@@ -98,7 +109,7 @@ void OBJParser::convertToVectors(){
         objData.positions[i].y -= ((Ymin + Ymax) * .5f);
         objData.positions[i].z -= ((Zmin + Zmax) * .5f);
     }
-    std::cout << Xmin << " " << Xmax << " " << Ymin << " " << Ymax << "\n";
+    // std::cout << Xmin << " " << Xmax << " " << Ymin << " " << Ymax << "\n";
     for (auto &str : _data["f"]){
         Face face;
         // int wordCounter = 0;
@@ -108,14 +119,27 @@ void OBJParser::convertToVectors(){
 
         while (word >> current){
             std::vector<std::string> position_textureCoordinates (split(current, '/'));
-            std::array<int, 2> faceVertex {-1,-1};
+            // std::cout << "entry : ";
+            // for (auto &ind : position_textureCoordinates)
+            //     std::cout << ind << " ";
+            // std::cout << "\n";
+            
+            unsigned int splitSize = position_textureCoordinates.size();
+            if (splitSize < 1 || splitSize > 3)
+                throw std::runtime_error(".OBJ format error.\n");
 
-
-            faceVertex[0] = std::stoi(position_textureCoordinates[0] )- 1 ;
-
-            if (position_textureCoordinates.size() == 2)
+            std::array<int, 3> faceVertex {-1,-1,-1};
+            // std::cout << splitSize << "\n";
+            if (!position_textureCoordinates[0].empty())
+                faceVertex[0] = std::stoi(position_textureCoordinates[0] )- 1 ;
+            if (splitSize == 2 || (splitSize == 3 && !position_textureCoordinates[1].empty()))
                 faceVertex[1] = std::stoi(position_textureCoordinates[1] )- 1;
+            if (splitSize == 3 && !position_textureCoordinates[2].empty())
+                faceVertex[2] = std::stoi(position_textureCoordinates[2])-1;
+            if (faceVertex[0] == -1)
+                throw std::runtime_error("Position can't be set to empty value.");
 
+            // std::cout << faceVertex[0] << " "<< faceVertex[1] << " "<< faceVertex[2] << "\n";
             face.corners.push_back(faceVertex);
             objData.drawIndices.push_back(faceVertex[0]);
         }
@@ -174,10 +198,10 @@ void OBJParser::createVertices(){
 
             float vertexColor = faceColor + (((float)(j) / 10) - 0.1);
             
-            vert.position = objData.positions[corner[0]];
+            vert.position = objData.positions.at(corner[0]);
             // std::cout << "meow" << corner[1] <<  std::endl;
             if (corner.at(1) > -1)
-                vert.textureCoordinates = objData.textureCoordinates[corner[1]];
+                vert.textureCoordinates = objData.textureCoordinates.at(corner[1]);
             else {
                 float u = (vert.position.x - Xmin) / (Xmax - Xmin); 
                 float v = (vert.position.y - Ymin) / (Ymax - Ymin);
