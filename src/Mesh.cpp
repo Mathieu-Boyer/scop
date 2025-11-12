@@ -23,10 +23,10 @@ Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(verti
     glEnableVertexAttribArray(0);
 
     glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, color));
-    glEnableVertexAttribArray(0);
+    glEnableVertexAttribArray(1);
 
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(vertex), (void *)offsetof(vertex, textureCoordinates));
-    glEnableVertexAttribArray(1);
+    glEnableVertexAttribArray(2);
 }
 
 void Mesh::draw() const {

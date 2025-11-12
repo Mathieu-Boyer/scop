@@ -12,7 +12,7 @@
 
 
 struct Face {
-    std::vector<std::array<int,2>> corners;
+    std::vector<std::array<int,3>> corners;
 };
 
 struct OBJ {
@@ -40,7 +40,10 @@ class OBJParser
         std::vector<vertex> vertices;
         void convertToVectors();
         void createVertices();
-        std::vector<std::string> split(const std::string& str, char delim);
+
+        void handlePositions();
+        void handleFaces();
+        void handleTextureCoordinates();
     public:
         OBJParser(const std::string &filePath);
         ~OBJParser();

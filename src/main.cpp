@@ -6,12 +6,13 @@ int main (){
 
         GLApp app(800, 800, "Scop");
         app.render();
+        // OBJParser parse("models/plant.obj");
+
 
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
     }
 
-    // OBJParser parse("models/teapot.obj");
 
     // for (int i = 0; i < 1000; i++){
 
