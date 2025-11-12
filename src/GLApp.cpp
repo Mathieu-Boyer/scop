@@ -23,13 +23,13 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
 void GLApp::render(){
 
     // OBJParser test("models/withTexture.obj");
-    OBJParser test("models/mario.obj");
+    OBJParser test("models/withTextureNormal.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
     // Texture brickTexture("textures/brickwall1.ppm");
-    Texture brickTexture("textures/mario.ppm");
+    Texture brickTexture("textures/brickwall1.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 50.f));
+    Camera camera(glm::vec3(0.0f, 0.0f, 1.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
