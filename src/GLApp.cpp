@@ -23,19 +23,19 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName){
 void GLApp::render(){
 
     // OBJParser test("models/withTexture.obj");
-    OBJParser test("models/withTextureNormal.obj");
+    OBJParser test("models/oiia.obj");
     Shaders shader("shaders/default.vs", "shaders/default.fs");
     // Texture brickTexture("textures/brickwall1.ppm");
-    Texture brickTexture("textures/brickwall1.ppm");
+    Texture brickTexture("textures/oiia.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 1.f));
+    Camera camera(glm::vec3(0.0f, 0.0f, 50.f));
     glm::mat4 view = camera.getViewMatrix();
     glm::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
 
-    cubeInstance.getTransform().scale = {.2,.2,.2};
-    int speed = 50;
+    cubeInstance.getTransform().scale = {.1,.1,.1};
+    int speed = 500;
 
     while(!glfwWindowShouldClose(window)){
         glfwPollEvents();
