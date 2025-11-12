@@ -40,6 +40,10 @@ class OBJParser
         std::vector<vertex> vertices;
         void convertToVectors();
         void createVertices();
+
+        void handlePositions();
+        void handleFaces();
+        void handleTextureCoordinates();
     public:
         OBJParser(const std::string &filePath);
         ~OBJParser();

@@ -14,7 +14,7 @@ int count(char toCount, const std::string& src){
     return counter;
 }
 
-static void handleFaces ( std::map<std::string, std::vector<std::string>> &_data, const std::string_view &value) {
+static void facesTriangulation ( std::map<std::string, std::vector<std::string>> &_data, const std::string_view &value) {
     unsigned int v1 = 0, v2 = 1, v3 = 2;
     size_t j = 0;
     std::vector<std::string_view> indices;
@@ -76,7 +76,7 @@ OBJParser::OBJParser(const std::string &filePath)
 
             std::string_view value = (cursor < line.size()) ? line.substr(cursor) : std::string_view();
             if (key == "f")
-                handleFaces(_data, value);
+                facesTriangulation(_data, value);
             else
                 _data[std::string(key)].push_back(std::string(value));
         }
@@ -85,16 +85,9 @@ OBJParser::OBJParser(const std::string &filePath)
     createVertices();
 }
 
-
-
-void OBJParser::convertToVectors() {
+void OBJParser::handlePositions(){
     auto &verts = _data["v"];
-    auto &faces = _data["f"];
-    auto &tex   = _data["vt"];
-
     objData.positions.reserve(verts.size());
-    objData.faces.reserve(faces.size());
-    objData.textureCoordinates.reserve(tex.size());
 
     for (const auto &line : verts) {
         std::string_view sv(line);
@@ -103,16 +96,13 @@ void OBJParser::convertToVectors() {
         size_t i = 0;
 
         while (i < sv.size() && wordCounter < 3) {
-            // skip spaces
             while (i < sv.size() && sv[i] == ' ')
                 i++;
             if (i >= sv.size())
                 break;
-
             size_t start = i;
             while (i < sv.size() && sv[i] != ' ')
                 i++;
-
             xyz[wordCounter++] = std::strtof(sv.substr(start, i - start).data(), nullptr);
         }
 
@@ -135,7 +125,11 @@ void OBJParser::convertToVectors() {
 
     for (auto &pos : objData.positions)
         pos -= offset;
+}
 
+void OBJParser::handleFaces(){
+    auto &faces = _data["f"];
+    objData.faces.reserve(faces.size());
     for (const auto &line : faces) {
         Face face;
         face.corners.reserve(3);
@@ -178,10 +172,13 @@ void OBJParser::convertToVectors() {
             face.corners.push_back(vert);
             objData.drawIndices.push_back(vert[0]);
         }
-
         objData.faces.push_back(std::move(face));
     }
+}
 
+void OBJParser::handleTextureCoordinates(){
+    auto &tex   = _data["vt"];
+    objData.textureCoordinates.reserve(tex.size());
     for (const auto &line : tex) {
         std::string_view sv(line);
         float uv[2];
@@ -206,6 +203,12 @@ void OBJParser::convertToVectors() {
 
         objData.textureCoordinates.emplace_back(uv[0], uv[1]);
     }
+}
+
+void OBJParser::convertToVectors() {
+    handlePositions();
+    handleFaces();
+    handleTextureCoordinates();
 }
 
 void OBJParser::createVertices() {
