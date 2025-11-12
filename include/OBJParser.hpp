@@ -40,7 +40,6 @@ class OBJParser
         std::vector<vertex> vertices;
         void convertToVectors();
         void createVertices();
-        std::vector<std::string> split(const std::string& str, char delim);
     public:
         OBJParser(const std::string &filePath);
         ~OBJParser();
