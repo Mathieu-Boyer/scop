@@ -28,7 +28,7 @@ LinearAlgebra::vec3 LinearAlgebra::normalize(const vec3 &v){
 }
 
 
-LinearAlgebra::vec4 LinearAlgebra::dot(const LinearAlgebra::mat4 &m, const LinearAlgebra::vec4 &v){
+LinearAlgebra::vec4 LinearAlgebra::matMul(const LinearAlgebra::mat4 &m, const LinearAlgebra::vec4 &v){
     LinearAlgebra::vec4 out;
     out.x = m.data[0] * v.x + m.data[4] * v.y + m.data[8] * v.z + m.data[12] * v.w;
     out.y = m.data[1] * v.x + m.data[5] * v.y + m.data[9] * v.z + m.data[13] * v.w;
@@ -36,6 +36,43 @@ LinearAlgebra::vec4 LinearAlgebra::dot(const LinearAlgebra::mat4 &m, const Linea
     out.w = m.data[3] * v.x + m.data[7] * v.y + m.data[11] * v.z + m.data[15] * v.w;
     return out;
 }
+
+LinearAlgebra::mat4 LinearAlgebra::matMul(const LinearAlgebra::mat4 &a, const LinearAlgebra::mat4 &b) {
+    LinearAlgebra::mat4 out;
+
+    for (int i = 0; i < 4; ++i)
+        for (int j = 0; j < 4; ++j) {
+            out.data[i + j*4] = 0.0f;
+            for (int k = 0; k < 4; ++k)
+                out.data[i + j*4] += a.data[i + k*4] * b.data[k + j*4];
+        }
+
+    return out;
+}
+
+
+LinearAlgebra::mat4::mat4(float diag){
+    data = {
+        diag, 0, 0 , 0,
+        0, diag, 0 , 0,
+        0, 0 , diag, 0,
+        0, 0 , 0, diag
+    };
+}
+
+
+LinearAlgebra::mat4 LinearAlgebra::scale(const LinearAlgebra::mat4 &a, const LinearAlgebra::vec3 &b){
+    LinearAlgebra::mat4 scaleMat;
+    scaleMat.data = {
+        b.x, 0, 0 , 0,
+        0, b.y, 0 , 0,
+        0, 0 , b.z, 0,
+        0, 0 , 0, 1
+    };
+
+    return LinearAlgebra::matMul(a, scaleMat);
+}
+
 
 LinearAlgebra::vec3 LinearAlgebra::vec3::operator+(const vec3 &rhs) const{
     return LinearAlgebra::add(*this, rhs);

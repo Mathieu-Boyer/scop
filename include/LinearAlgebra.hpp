@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <array>
 class LinearAlgebra
 {
     private:
@@ -20,7 +21,9 @@ class LinearAlgebra
         };
 
         struct mat4{
-            float data[16];
+            std::array<float, 16> data;
+            mat4() = default;
+            mat4(float diag);
         };
 
         static vec3 cross(const vec3 &v1, const vec3 &v2);
@@ -28,9 +31,10 @@ class LinearAlgebra
         static vec3 add(const vec3 &v1, const vec3 &v2);
         static vec3 sub(const vec3 &v1, const vec3 &v2);
         static float dot(const vec3 &a, const vec3 &b);
-        static vec4 dot(const mat4 &m, const vec4 &v);
+        static vec4 matMul(const mat4 &m, const vec4 &v);
+        static mat4 matMul(const LinearAlgebra::mat4 &a, const LinearAlgebra::mat4 &b);
 
-        static mat4 scale(const mat4 &a, const mat4 &b);
+        static mat4 scale(const mat4 &a, const vec3 &b);
 
 
 
