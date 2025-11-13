@@ -22,7 +22,7 @@ class LinearAlgebra
 
         static vec3 cross(const vec3 &v1, const vec3 &v2);
         static float dot(const vec3 &a, const vec3 &b);
-        static float dot(const mat4 &m, const vec4 &v);
+        static vec4 dot(const mat4 &m, const vec4 &v);
 
         LinearAlgebra() = delete;
         ~LinearAlgebra() = delete;
