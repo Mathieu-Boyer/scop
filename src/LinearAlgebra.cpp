@@ -21,6 +21,13 @@ LinearAlgebra::vec3 LinearAlgebra::sub(const LinearAlgebra::vec3 &a, const Linea
     return {a.x - b.x , a.y - b.y , a.z - b.z};
 }
 
+LinearAlgebra::vec3 LinearAlgebra::normalize(const vec3 &v){
+    float magnitude = v.computeMagnitude();
+    if (magnitude == 0.0f) return {0.0f, 0.0f, 0.0f}; // or maybe i will it throw error i'm not sure yet
+    return {v.x / magnitude, v.y / magnitude, v.z / magnitude};
+}
+
+
 LinearAlgebra::vec4 LinearAlgebra::dot(const LinearAlgebra::mat4 &m, const LinearAlgebra::vec4 &v){
     LinearAlgebra::vec4 out;
 
@@ -37,4 +44,10 @@ LinearAlgebra::vec3 LinearAlgebra::vec3::operator+(const vec3 &rhs) const{
 }
 LinearAlgebra::vec3 LinearAlgebra::vec3::operator-(const vec3 &rhs) const{
     return LinearAlgebra::sub(*this, rhs);
+}
+
+float LinearAlgebra::vec3::computeMagnitude() const{
+    return (std::sqrt(
+        x*x + y*y + z*z
+    ));
 }
