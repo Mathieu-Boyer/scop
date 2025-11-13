@@ -12,6 +12,15 @@ LinearAlgebra::vec3 LinearAlgebra::cross(const LinearAlgebra::vec3 &a, const Lin
 float LinearAlgebra::dot(const LinearAlgebra::vec3 &a, const LinearAlgebra::vec3 &b){
     return a.x * b.x + a.y * b.y + a.z * b.z;
 }
+
+LinearAlgebra::vec3 LinearAlgebra::add(const LinearAlgebra::vec3 &a, const LinearAlgebra::vec3 &b){
+    return {a.x + b.x , a.y + b.y , a.z + b.z};
+}
+
+LinearAlgebra::vec3 LinearAlgebra::sub(const LinearAlgebra::vec3 &a, const LinearAlgebra::vec3 &b){
+    return {a.x - b.x , a.y - b.y , a.z - b.z};
+}
+
 LinearAlgebra::vec4 LinearAlgebra::dot(const LinearAlgebra::mat4 &m, const LinearAlgebra::vec4 &v){
     LinearAlgebra::vec4 out;
 
@@ -21,4 +30,11 @@ LinearAlgebra::vec4 LinearAlgebra::dot(const LinearAlgebra::mat4 &m, const Linea
     out.w = m.data[12] * v.x + m.data[13] * v.y + m.data[14] * v.z + m.data[15] * v.w;
 
     return out;
+}
+
+LinearAlgebra::vec3 LinearAlgebra::vec3::operator+(const vec3 &rhs) const{
+    return LinearAlgebra::add(*this, rhs);
+}
+LinearAlgebra::vec3 LinearAlgebra::vec3::operator-(const vec3 &rhs) const{
+    return LinearAlgebra::sub(*this, rhs);
 }
