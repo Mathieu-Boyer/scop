@@ -4,23 +4,9 @@
 
 int main (){
     try {
-        // GLApp app(800, 800, "Scop");
-        // app.render();
-
-        /// tests go under there ///
-        
+        GLApp app(800, 800, "Scop");
+        app.render();
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
-    }
-
-    LinearAlgebra::mat4 lhs(1);
-    LinearAlgebra::vec3 sf = {2,3,1};
-
-    LinearAlgebra::mat4 scaled = LinearAlgebra::translate(LinearAlgebra::scale(lhs, sf), sf);
-
-    for (unsigned i = 0; i < 4; i++){
-        for (unsigned j = 0; j < 4; j++)
-            std::cout << scaled.data[(4 * i) + j] << " ";
-        std::cout << "\n";
     }
 }

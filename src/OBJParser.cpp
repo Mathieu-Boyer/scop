@@ -119,12 +119,12 @@ void OBJParser::handlePositions(){
         objData.positions.emplace_back(xyz[0], xyz[1], xyz[2]);
     }
 
-    glm::vec3 offset((Xmin + Xmax) * 0.5f,
+    LinearAlgebra::vec3 offset((Xmin + Xmax) * 0.5f,
                      (Ymin + Ymax) * 0.5f,
                      (Zmin + Zmax) * 0.5f);
 
     for (auto &pos : objData.positions)
-        pos -= offset;
+        pos = pos - offset;
 }
 
 void OBJParser::handleFaces(){
@@ -232,10 +232,10 @@ void OBJParser::createVertices() {
             } else {
                 float u = (vert.position.x - Xmin) / dx;
                 float v = (vert.position.y - Ymin) / dy;
-                vert.textureCoordinates = glm::vec2(u, v);
+                vert.textureCoordinates = LinearAlgebra::vec2(u, v);
             }
 
-            vert.color = glm::vec3(vertexColor);
+            vert.color = LinearAlgebra::vec3(vertexColor);
             vertices.push_back(vert);
             ++cornerIndex;
         }

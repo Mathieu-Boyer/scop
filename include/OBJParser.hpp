@@ -1,7 +1,6 @@
 #pragma once
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "LinearAlgebra.hpp"
+
 
 #include <fstream>
 #include <vector>
@@ -16,8 +15,8 @@ struct Face {
 };
 
 struct OBJ {
-    std::vector<glm::vec3> positions;
-    std::vector<glm::vec2> textureCoordinates;
+    std::vector<LinearAlgebra::vec3> positions;
+    std::vector<LinearAlgebra::vec2> textureCoordinates;
     std::vector<Face> faces;
     std::vector<unsigned int> drawIndices;
 };

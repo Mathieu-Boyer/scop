@@ -66,9 +66,9 @@ void Shaders::setFloat(const std::string &name, float value) const {
     glUniform1f(glGetUniformLocation(shaderProgram, name.c_str()), value); 
 }
 
-void Shaders::setMat4(const std::string &name, glm::mat4 mat){
+void Shaders::setMat4(const std::string &name, LinearAlgebra::mat4 mat){
     unsigned int loc = glGetUniformLocation(shaderProgram, name.c_str());
-    glUniformMatrix4fv(loc, 1, GL_FALSE, glm::value_ptr(mat));
+    glUniformMatrix4fv(loc, 1, GL_FALSE, &mat.data[0]);
 }
 
 Shaders::~Shaders()

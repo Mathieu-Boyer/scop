@@ -1,12 +1,11 @@
 #pragma once
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "LinearAlgebra.hpp"
+#include "utils.hpp"
 
 typedef struct transform {
     transform();
-    glm::vec3 rotation;
-    glm::vec3 translation;
-    glm::vec3 scale;
-    glm::mat4 getModelMatrix() const;
+    LinearAlgebra::vec3 rotation;
+    LinearAlgebra::vec3 translation;
+    LinearAlgebra::vec3 scale;
+    LinearAlgebra::mat4 getModelMatrix() const;
 } s_transform;
