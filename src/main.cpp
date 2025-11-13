@@ -1,14 +1,14 @@
 #include "main.hpp"
 #include "OBJParser.hpp"
+#include "LinearAlgebra.hpp"
 
 int main (){
     try {
+        // GLApp app(800, 800, "Scop");
+        // app.render();
 
-        GLApp app(800, 800, "Scop");
-        app.render();
-        // OBJParser parse("models/plant.obj");
-
-
+        /// tests go under there ///
+        
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
     }
