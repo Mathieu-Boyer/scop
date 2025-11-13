@@ -30,6 +30,8 @@ class LinearAlgebra
         static float dot(const vec3 &a, const vec3 &b);
         static vec4 dot(const mat4 &m, const vec4 &v);
 
+        static mat4 scale(const mat4 &a, const mat4 &b);
+
 
 
         LinearAlgebra() = delete;
