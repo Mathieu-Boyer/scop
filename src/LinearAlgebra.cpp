@@ -73,7 +73,69 @@ LinearAlgebra::mat4 LinearAlgebra::scale(const LinearAlgebra::mat4 &a, const Lin
     return LinearAlgebra::matMul(a, scaleMat);
 }
 
+LinearAlgebra::mat4 LinearAlgebra::translate(const LinearAlgebra::mat4 &a, const LinearAlgebra::vec3 &b){
+    LinearAlgebra::mat4 translateMat;
+    translateMat.data = {
+        1, 0, 0 , b.x,
+        0, 1, 0 , b.y,
+        0, 0 , 1, b.z,
+        0, 0 , 0, 1
+    };
 
+    return LinearAlgebra::matMul(a, translateMat);
+}
+
+
+LinearAlgebra::mat4 LinearAlgebra::rotateX(float rad) {
+    float c = cos(rad);
+    float s = sin(rad);
+    LinearAlgebra::mat4 result(1);
+
+    result.data[5] = c;
+    result.data[6] = -s;
+    result.data[9] = s;
+    result.data[10] = c;
+
+    return result;
+}
+
+LinearAlgebra::mat4 LinearAlgebra::rotateY(float rad) {
+    float c = cos(rad);
+    float s = sin(rad);
+    LinearAlgebra::mat4 result(1);
+
+    result.data[0] = c;
+    result.data[2] = -s;
+    result.data[8] = s;
+    result.data[10] = c;
+
+    return result;
+}
+
+LinearAlgebra::mat4 LinearAlgebra::rotateZ(float rad) {
+    float c = cos(rad);
+    float s = sin(rad);
+    LinearAlgebra::mat4 result(1);
+
+    result.data[0] = c;
+    result.data[1] = -s;
+    result.data[4] = s;
+    result.data[5] = c;
+
+    return result;
+}
+
+LinearAlgebra::mat4 LinearAlgebra::rotate(const LinearAlgebra::mat4 &model, float rad, const LinearAlgebra::vec3 &axis) {
+    if (axis.x == 1.0f && axis.y == 0.0f && axis.z == 0.0f)
+        return matMul(model, rotateX(rad));
+    else if (axis.x == 0.0f && axis.y == 1.0f && axis.z == 0.0f)
+        return matMul(model, rotateY(rad));
+    else if (axis.x == 0.0f && axis.y == 0.0f && axis.z == 1.0f)
+        return matMul(model, rotateZ(rad));
+    else
+        throw std::logic_error("Invalid axis argument.");
+    return model;
+}
 LinearAlgebra::vec3 LinearAlgebra::vec3::operator+(const vec3 &rhs) const{
     return LinearAlgebra::add(*this, rhs);
 }

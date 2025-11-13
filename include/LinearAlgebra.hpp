@@ -35,7 +35,11 @@ class LinearAlgebra
         static mat4 matMul(const LinearAlgebra::mat4 &a, const LinearAlgebra::mat4 &b);
 
         static mat4 scale(const mat4 &a, const vec3 &b);
-
+        static mat4 translate(const LinearAlgebra::mat4 &a, const LinearAlgebra::vec3 &b);
+        static mat4 rotateX(float rad);
+        static mat4 rotateY(float rad);
+        static mat4 rotateZ(float rad);
+        static mat4 rotate(const mat4 &model, float rad, const vec3 &axis);
 
 
         LinearAlgebra() = delete;
