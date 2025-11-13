@@ -1,11 +1,11 @@
 #include "LinearAlgebra.hpp"
 
 
-LinearAlgebra::vec3 LinearAlgebra::cross(const LinearAlgebra::vec3 &v1, const LinearAlgebra::vec3 &v2){
+LinearAlgebra::vec3 LinearAlgebra::cross(const LinearAlgebra::vec3 &a, const LinearAlgebra::vec3 &b){
     return {
-        v1.x * v2.x,
-        v1.y * v2.y,
-        v1.z * v2.z
+        a.y * b.z - a.z * b.y,
+        a.z * b.x - a.x * b.z,
+        a.x * b.y - a.y * b.x,
     };
 }
 
