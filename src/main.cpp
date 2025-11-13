@@ -13,9 +13,10 @@ int main (){
         std::cerr << err.what() << "\n";
     }
 
+    LinearAlgebra::vec4 v = {1,2,3,4};
+    LinearAlgebra::mat4 m = {1,2,3,4,1,2,3,4,1,2,3,4,1,2,3,4};
+    LinearAlgebra::vec4 res = LinearAlgebra::dot(m, v);
 
-    // for (int i = 0; i < 1000; i++){
+    std::cout << res.x << " " << res.y << " " << res.z << " " << res.w  << "\n";
 
-    //     // std::cout << newGrey << " " << i << "\n";
-    // }
 }
