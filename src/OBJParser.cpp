@@ -235,7 +235,7 @@ void OBJParser::createVertices() {
                 vert.textureCoordinates = LinearAlgebra::vec2(u, v);
             }
 
-            vert.color = LinearAlgebra::vec3(vertexColor);
+            vert.color = LinearAlgebra::vec3(vertexColor, vertexColor, vertexColor);
             vertices.push_back(vert);
             ++cornerIndex;
         }
