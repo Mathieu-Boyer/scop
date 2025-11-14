@@ -9,10 +9,23 @@ uniform mat4 transform;
 uniform mat4 model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float time;
+uniform bool wavesAreEnabled;
 
 void main()
 {
-    gl_Position = projection * view * model * vec4(aPos, 1.0);
+    vec3 tempPos = aPos;
+    if (wavesAreEnabled){
+        float test1 = aPos.x * 1.0;
+        float test2 = time * 2.0;
+        float amp = .5;
+        float phase = (test1 + test2);
+
+        tempPos.y += sin(phase) * amp;
+    }
+    // tempPos.x += sin(phase) * amp;
+
+    gl_Position = projection * view * model * vec4(tempPos, 1.0);
     myTextCoor = vec2(aText.x, 1.0 - aText.y);
     myColor = vec4(aColor, 1.0);
 }

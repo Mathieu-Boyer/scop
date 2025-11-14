@@ -127,6 +127,34 @@ void OBJParser::handlePositions(){
         pos = pos - offset;
 }
 
+void OBJParser::handleNormals(){
+    auto &vn = _data["vn"];
+    objData.normals.reserve(vn.size());
+
+    for (const auto &line : vn) {
+        std::string_view sv(line);
+        float xyz[3];
+        int wordCounter = 0;
+        size_t i = 0;
+
+        while (i < sv.size() && wordCounter < 3) {
+            while (i < sv.size() && sv[i] == ' ')
+                i++;
+            if (i >= sv.size())
+                break;
+            size_t start = i;
+            while (i < sv.size() && sv[i] != ' ')
+                i++;
+            xyz[wordCounter++] = std::strtof(sv.substr(start, i - start).data(), nullptr);
+        }
+
+        if (wordCounter != 3)
+            throw std::runtime_error("Invalid normal line: expected 3 floats.");
+
+        objData.normals.emplace_back(xyz[0], xyz[1], xyz[2]);
+    }
+}
+
 void OBJParser::handleFaces(){
     auto &faces = _data["f"];
     objData.faces.reserve(faces.size());
@@ -205,8 +233,19 @@ void OBJParser::handleTextureCoordinates(){
     }
 }
 
+const LinearAlgebra::vec3 OBJParser::scalingVector() const{
+    float sizeX = Xmax - Xmin ;
+    float sizeY = Ymax - Ymin ;
+    float sizeZ = Zmax - Zmin ;
+    float target = 2.0f;
+    float largetDim = std::max(std::max(sizeX, sizeY), sizeZ);
+
+    return {target/largetDim, target/largetDim, target/largetDim};
+}
+
 void OBJParser::convertToVectors() {
     handlePositions();
+    handleNormals();
     handleFaces();
     handleTextureCoordinates();
 }
@@ -221,24 +260,48 @@ void OBJParser::createVertices() {
     for (const auto &face : objData.faces) {
         float faceBaseColor = 0.3f + (static_cast<float>(faceIndex % 50) / 100.0f);
         unsigned int cornerIndex = 0;
-
+        // unsigned int faceStart = 0;
         for (const auto &corner : face.corners) {
             vertex vert;
             float vertexColor = faceBaseColor + ((cornerIndex / 10.0f) - 0.1f);
             vert.position = objData.positions[corner[0]];
 
-            if (corner[1] >= 0 && corner[1] < static_cast<int>(objData.textureCoordinates.size())) {
+            if (corner[1] >= 0 && corner[1] < static_cast<int>(objData.textureCoordinates.size()))
                 vert.textureCoordinates = objData.textureCoordinates[corner[1]];
-            } else {
+            else {
                 float u = (vert.position.x - Xmin) / dx;
                 float v = (vert.position.y - Ymin) / dy;
                 vert.textureCoordinates = LinearAlgebra::vec2(u, v);
             }
 
+            if (corner[2] >= 0 && corner[2] < static_cast<int>(objData.normals.size()))
+                vert.normal = objData.normals[corner[2]];
+
+
+
             vert.color = LinearAlgebra::vec3(vertexColor, vertexColor, vertexColor);
             vertices.push_back(vert);
+
+            // std::cout << cornerIndex << "\n";
+
+            if (cornerIndex == 2){
+                auto &v0 = vertices[vertices.size()-1 - 2];
+                auto &v1 = vertices[vertices.size()-1 - 1];
+                auto &v2 = vertices[vertices.size()-1 - 0];
+
+                auto e1 = v1.position - v0.position;
+                auto e2 = v2.position - v0.position;
+
+                auto faceNormal = LinearAlgebra::normalize(LinearAlgebra::cross(e1, e2));
+
+                v0.normal = faceNormal;
+                v1.normal = faceNormal;
+                v2.normal = faceNormal;
+            }
+
             ++cornerIndex;
         }
+
         ++faceIndex;
     }
 }

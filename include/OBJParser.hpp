@@ -16,6 +16,7 @@ struct Face {
 
 struct OBJ {
     std::vector<LinearAlgebra::vec3> positions;
+    std::vector<LinearAlgebra::vec3> normals;
     std::vector<LinearAlgebra::vec2> textureCoordinates;
     std::vector<Face> faces;
     std::vector<unsigned int> drawIndices;
@@ -41,6 +42,7 @@ class OBJParser
         void createVertices();
 
         void handlePositions();
+        void handleNormals();
         void handleFaces();
         void handleTextureCoordinates();
     public:
@@ -52,4 +54,5 @@ class OBJParser
 
         std::vector<vertex> &getVertices();
         const  std::vector<vertex> &getVertices() const;
+        const LinearAlgebra::vec3 scalingVector() const;
 };
