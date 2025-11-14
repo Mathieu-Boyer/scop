@@ -11,14 +11,21 @@ class GLApp
 {
 private:
     GLFWwindow *window = NULL;
-    
-
+    std::unique_ptr<Shaders> shader;
+    float currentProgress = 0;
+    void transitionIncrementation(float factor);
 public:
     GLApp(unsigned int width, unsigned int height, const char *windowName);
     ~GLApp();
 
     // void setShaders(std::unique_ptr<Shaders> shaders);
+    bool textureIsOff = true;
+
+    bool transitionIsEnabled = false;
+
     void render();
-    // Shaders &shaders() { return _shaders; }
-    // const Shaders &shaders() const { return _shaders; }
+    void textureTransition();
+
+    // Shaders &getShader() { return *shader; }
+    // const Shaders &getShader() const { return *shader; }
 };
