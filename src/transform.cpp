@@ -1,6 +1,6 @@
 #include "transform.hpp"
 
-transform::transform() : rotation(0.0f), translation(0.0f), scale({1.f,1.f,1.f}){}
+transform::transform() : rotation({0.f,0.f,0.f}), translation({0.f,0.f,0.f}), scale({1.f,1.f,1.f}){}
 
 LinearAlgebra::mat4 transform::getModelMatrix() const{
     LinearAlgebra::mat4 model = LinearAlgebra::mat4(1.0f);

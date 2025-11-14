@@ -6,4 +6,5 @@ struct vertex
     LinearAlgebra::vec3 position;
     LinearAlgebra::vec3 color;
     LinearAlgebra::vec2 textureCoordinates;
+    LinearAlgebra::vec3 normal;
 };

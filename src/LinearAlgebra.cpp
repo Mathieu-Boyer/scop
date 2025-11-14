@@ -76,10 +76,10 @@ LinearAlgebra::mat4 LinearAlgebra::scale(const LinearAlgebra::mat4 &a, const Lin
 LinearAlgebra::mat4 LinearAlgebra::translate(const LinearAlgebra::mat4 &a, const LinearAlgebra::vec3 &b){
     LinearAlgebra::mat4 translateMat;
     translateMat.data = {
-        1, 0, 0 , b.x,
-        0, 1, 0 , b.y,
-        0, 0 , 1, b.z,
-        0, 0 , 0, 1
+        1, 0, 0 , 0,
+        0, 1, 0 , 0,
+        0, 0 , 1, 0,
+        b.x, b.y , b.z, 1
     };
 
     return LinearAlgebra::matMul(a, translateMat);
