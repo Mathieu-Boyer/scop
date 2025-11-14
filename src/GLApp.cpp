@@ -29,9 +29,9 @@ void GLApp::render(){
     Texture brickTexture("textures/oiia.ppm");
     Mesh cube(test.getVertices(), test.getObjData());
 
-    Camera camera(glm::vec3(0.0f, 0.0f, 50.f));
-    glm::mat4 view = camera.getViewMatrix();
-    glm::mat4 projection = camera.getProjectionMatrix();
+    Camera camera(LinearAlgebra::vec3(0.0f, 0.0f, 50.f));
+    LinearAlgebra::mat4 view = camera.getViewMatrix();
+    LinearAlgebra::mat4 projection = camera.getProjectionMatrix();
     Renderable cubeInstance(cube, brickTexture);
 
     cubeInstance.getTransform().scale = {.1,.1,.1};
