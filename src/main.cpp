@@ -4,7 +4,7 @@
 
 int main (){
     try {
-        GLApp app(800, 800, "Scop", "models/42.obj");
+        GLApp app(800, 800, "Scop", "models/plant.obj", "textures/plant.ppm");
         app.render();
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
