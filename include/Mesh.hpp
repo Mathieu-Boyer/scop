@@ -7,7 +7,7 @@
 #endif
 
 #ifdef __linux__
-#include <OpenGL/gl.h>
+#include <GL/gl.h>
 #endif
 #include "GLFW/glfw3.h"
 #include <vector>
