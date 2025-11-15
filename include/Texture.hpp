@@ -6,6 +6,7 @@
 
 #ifdef __linux__
 #include <GL/gl.h>
+#include "utils.hpp"
 #endif
 #include <string>
 #include "PPMParser.hpp"
