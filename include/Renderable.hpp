@@ -8,11 +8,11 @@ class Renderable
 {
     private:
         Mesh &mesh;
-        Texture &texture;
+        Texture *texture;
         s_transform transform{};
 
     public:
-        Renderable(Mesh &mesh, Texture &texture);
+        Renderable(Mesh &mesh, Texture *texture);
         void draw(Shaders &shader);
         s_transform &getTransform();
         const s_transform &getTransform() const;
