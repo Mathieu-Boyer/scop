@@ -1,10 +1,13 @@
 #include "Renderable.hpp"
 
 
-Renderable::Renderable(Mesh &mesh, Texture &texture) : mesh(mesh), texture(texture){}
+Renderable::Renderable(Mesh &mesh, Texture *texture) : mesh(mesh), texture(texture){}
 
 void Renderable::draw(Shaders &shader){
-    texture.bind();
+
+    shader.use();
+    if (texture)
+        texture->bind();
     shader.setMat4("model", transform.getModelMatrix());
     mesh.draw();
 }

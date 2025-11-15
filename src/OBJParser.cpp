@@ -281,9 +281,6 @@ void OBJParser::createVertices() {
 
             vert.color = LinearAlgebra::vec3(vertexColor, vertexColor, vertexColor);
             vertices.push_back(vert);
-
-            // std::cout << cornerIndex << "\n";
-
             if (cornerIndex == 2){
                 auto &v0 = vertices[vertices.size()-1 - 2];
                 auto &v1 = vertices[vertices.size()-1 - 1];

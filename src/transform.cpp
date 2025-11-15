@@ -4,10 +4,11 @@ transform::transform() : rotation({0.f,0.f,0.f}), translation({0.f,0.f,0.f}), sc
 
 LinearAlgebra::mat4 transform::getModelMatrix() const{
     LinearAlgebra::mat4 model = LinearAlgebra::mat4(1.0f);
-    model = LinearAlgebra::scale(model, scale);
+    model = LinearAlgebra::translate(model, translation);
     model = LinearAlgebra::rotate(model, degToRad(rotation.x), LinearAlgebra::vec3(1,0,0));
     model = LinearAlgebra::rotate(model, degToRad(rotation.y), LinearAlgebra::vec3(0,1,0));
     model = LinearAlgebra::rotate(model, degToRad(rotation.z), LinearAlgebra::vec3(0,0,1));
-    model = LinearAlgebra::translate(model, translation);
+    model = LinearAlgebra::scale(model, scale);
+
     return model;
 }
