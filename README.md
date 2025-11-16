@@ -1,5 +1,5 @@
-# scop
-A 3D object visualization project from 42 School that explores the fundamentals of computer graphics programming.
+# scop 
+A 3D object visualization project from 42 School that explores the fundamentals of computer graphics programming. (Only macOs compatible for now)
 
 ## Overview
 
