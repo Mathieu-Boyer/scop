@@ -34,10 +34,7 @@ Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(verti
 
 void Mesh::draw() const {
     glBindVertexArray(VAO);
-    // std::cout << objData.positions.size() << "\n";
     glDrawArrays(GL_TRIANGLES, 0, objData.drawIndices.size());
-
-    // glDrawElements(GL_TRIANGLES, objData.drawIndices.size(), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
 }
 
