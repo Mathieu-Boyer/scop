@@ -19,6 +19,7 @@ private:
     int height = 0;
 
 public:
+    Texture();
     Texture(const std::string &filePath);
     Texture(const Texture&) = delete;
     Texture& operator=(const Texture&) = delete;

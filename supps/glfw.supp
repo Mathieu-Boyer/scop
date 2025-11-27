@@ -1,0 +1,74 @@
+{
+   LLVM_vector_realloc
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:_Znwm
+   fun:_ZNSt6vectorINSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEESaIS5_EE17_M_realloc_insertIJRKS5_EEEvN9__gnu_cxx17__normal_iteratorIPS5_S7_EEDpOT_
+   obj:/usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+}
+
+{
+   X11_charset_init
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:_XlcCreateDefaultCharSet
+   fun:_XlcAddCT
+   fun:_XlcInitCTInfo
+}
+
+{
+   X11_locale_strdup
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:strdup
+   ...
+   fun:_XlcCreateLocaleDataBase
+}
+
+{
+   dl_cache_lookup
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:malloc
+   fun:strdup
+   fun:_dl_load_cache_lookup
+}
+
+{
+   dl_new_object
+   Memcheck:Leak
+   match-leak-kinds: reachable
+   fun:malloc
+   fun:malloc
+   fun:_dl_new_object
+}
+
+{
+   dl_rpath_strncmp_overread
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_count
+   fun:expand_dynamic_string_token
+   fun:fillin_rpath.isra.0
+}
+
+{
+   dl_rpath_strncmp_substitute
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   fun:_dl_dst_substitute
+   fun:fillin_rpath.isra.0
+}
+
+{
+   dl_generic_invalid_read
+   Memcheck:Addr8
+   fun:strncmp
+   ...
+   fun:_dl_map_object
+}

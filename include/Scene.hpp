@@ -33,7 +33,7 @@ public:
 
     void transitionIncrementation(float factor);
 
-    std::array<int, 2> keyFlags;
+    std::array<int, 2> keyFlags{};
 
     void updateLightPosition(int currentFlag);
 

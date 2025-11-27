@@ -1,6 +1,6 @@
 #include "Shaders.hpp"
 
-Shaders::Shaders(const std::string &vertexShaderPath, const std::string &fragmentShaderPath){
+Shaders::Shaders(const std::string vertexShaderPath, const std::string fragmentShaderPath){
     vertexShaderFileContent = loadShader(vertexShaderPath);
     fragmentShaderFileContent = loadShader(fragmentShaderPath);
 

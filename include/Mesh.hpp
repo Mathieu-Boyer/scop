@@ -8,6 +8,7 @@
 
 #ifdef __linux__
 #include <GL/gl.h>
+#include "utils.hpp"
 #endif
 #include "GLFW/glfw3.h"
 #include <vector>

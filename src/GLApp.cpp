@@ -38,14 +38,19 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 
 
 
-GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName, const std::string &objPath, const std::string &objTexture) : objPath(objPath), objTexture(objTexture)  {
+GLApp::GLApp(unsigned int width, unsigned int height, const std::string &objPath, const std::string &_objTexture) : objPath(objPath), objTexture(_objTexture)  {
+    std::cout << "----->1\n" ;
 
         glfwInit();
         glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
         glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
         glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    std::cout << "----->2\n" ;
 
-        window = glfwCreateWindow(width, height, windowName, NULL, NULL);
+
+        window = glfwCreateWindow(width, height, "Scope", NULL, NULL);
+    std::cout << "----->3\n" ;
+
         if (!window){
             std::cerr << "Window couldn't be openned\n";
             glfwTerminate();
@@ -57,7 +62,6 @@ GLApp::GLApp(unsigned int width, unsigned int height, const char *windowName, co
 }
 
 void GLApp::render(){
-
     Scene scene(objPath, objTexture);
 
     glfwSetWindowUserPointer(window, &scene);

@@ -24,7 +24,7 @@ private:
     const std::string &objPath;
     const std::string &objTexture;
 public:
-    GLApp(unsigned int width, unsigned int height, const char *windowName, const std::string &objPath = "models/42.obj", const std::string &objTexture = "textures/wood.ppm");
+    GLApp(unsigned int width, unsigned int height, const std::string &objPath = "models/42.obj", const std::string &objTexture = "textures/wood.ppm");
     ~GLApp();
 
     // void setShaders(std::unique_ptr<Shaders> shaders);

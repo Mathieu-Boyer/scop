@@ -5,7 +5,7 @@
 PPMParser::PPMParser(const std::string &texturePath){
     std::ifstream file (texturePath, std::ios::binary);
     if (!file)
-        throw std::runtime_error("Texture : " + texturePath + " not found.");
+        throw std::runtime_error("Texture ::: " + texturePath + " not found.");
 
     std::string fileType;
     file >> fileType;

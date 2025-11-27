@@ -6,9 +6,10 @@ Scene::Scene(const std::string &objectPath, const std::string &texturePath) :
     shader("shaders/default.vs", "shaders/default.fs"), lightingShader("shaders/lighting.vs", "shaders/lighting.fs"),
     texture(texturePath),
     mesh(object.getVertices(), object.getObjData()), cube(lightingObject.getVertices(), lightingObject.getObjData()),
-    camera(LinearAlgebra::vec3(0.0f, 0.0f, 10.f)),
+    camera((LinearAlgebra::vec3){0.0f, 0.0f, 10.f}),
     lightCube(cube, NULL), meshInstance(mesh, &texture)
 {
+    // (void) texturePath;
     view = camera.getViewMatrix();
     projection = camera.getProjectionMatrix();
     meshInstance.getTransform().scale = object.scalingVector();

@@ -14,9 +14,9 @@ Camera::Camera(const LinearAlgebra::vec3 &pos, float fov, float aspect, float ne
 void Camera::updateCameraRotation()
 {
     localFront = LinearAlgebra::normalize((LinearAlgebra::vec3){
-        cos(degToRad(pitch)) * cos(degToRad(yaw)),
-        sin(degToRad(pitch)),
-        cos(degToRad(pitch)) * sin(degToRad(yaw)),
+        static_cast<float>(cos(degToRad(pitch))) * static_cast<float>(cos(degToRad(yaw))),
+        static_cast<float>(sin(degToRad(pitch))),
+        static_cast<float>(cos(degToRad(pitch))) * static_cast<float>(sin(degToRad(yaw))),
     });
     localRight = LinearAlgebra::normalize(LinearAlgebra::cross(localFront, worldUp));
     localUp = LinearAlgebra::normalize(LinearAlgebra::cross(localRight, localFront));

@@ -1,12 +1,17 @@
 #include "Texture.hpp"
+#include <iostream>
 
 
 void Texture::unbind(){
     glBindTexture(GL_TEXTURE_2D, 0);
 }
+Texture::Texture(){
+    std::cout << "okayyyyy\n" ;
+}
 
 Texture::Texture(const std::string &filePath) 
 {
+    std::cout << filePath << "\n";
     PPMParser textureObject(filePath);
 
     width  = textureObject.getWidth();

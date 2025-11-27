@@ -2,9 +2,7 @@
 #include <iostream>
 #include <sstream>
 #include <charconv>
-
-////// move to utils later ///
-
+#include <string_view>
 
 int count(char toCount, const std::string& src){
     int counter = 0;
@@ -40,8 +38,9 @@ static void facesTriangulation ( std::map<std::string, std::vector<std::string>>
 }
 
 
-OBJParser::OBJParser(const std::string &filePath)
+OBJParser::OBJParser(const std::string filePath)
 {
+    std::cout << filePath << std::endl;
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
     if (!file)
         throw std::runtime_error("Failed to open file.");
@@ -116,12 +115,15 @@ void OBJParser::handlePositions(){
         Zmin = std::min(Zmin, xyz[2]);
         Zmax = std::max(Zmax, xyz[2]);
 
-        objData.positions.emplace_back(xyz[0], xyz[1], xyz[2]);
+        LinearAlgebra::vec3 positions;
+
+        positions.x = xyz[0]; positions.y = xyz[1]; positions.z = xyz[2];
+        objData.positions.emplace_back(positions);
     }
 
-    LinearAlgebra::vec3 offset((Xmin + Xmax) * 0.5f,
+    LinearAlgebra::vec3 offset({(Xmin + Xmax) * 0.5f,
                      (Ymin + Ymax) * 0.5f,
-                     (Zmin + Zmax) * 0.5f);
+                     (Zmin + Zmax) * 0.5f});
 
     for (auto &pos : objData.positions)
         pos = pos - offset;
@@ -151,7 +153,7 @@ void OBJParser::handleNormals(){
         if (wordCounter != 3)
             throw std::runtime_error("Invalid normal line: expected 3 floats.");
 
-        objData.normals.emplace_back(xyz[0], xyz[1], xyz[2]);
+        objData.normals.emplace_back((LinearAlgebra::vec3){xyz[0], xyz[1], xyz[2]});
     }
 }
 
@@ -229,7 +231,7 @@ void OBJParser::handleTextureCoordinates(){
         if (count != 2)
             throw std::runtime_error("Invalid texture coordinate line.");
 
-        objData.textureCoordinates.emplace_back(uv[0], uv[1]);
+        objData.textureCoordinates.emplace_back((LinearAlgebra::vec2){uv[0], uv[1]});
     }
 }
 
@@ -271,7 +273,7 @@ void OBJParser::createVertices() {
             else {
                 float u = (vert.position.x - Xmin) / dx;
                 float v = (vert.position.y - Ymin) / dy;
-                vert.textureCoordinates = LinearAlgebra::vec2(u, v);
+                vert.textureCoordinates = (LinearAlgebra::vec2){u, v};
             }
 
             if (corner[2] >= 0 && corner[2] < static_cast<int>(objData.normals.size()))
@@ -279,7 +281,7 @@ void OBJParser::createVertices() {
 
 
 
-            vert.color = LinearAlgebra::vec3(vertexColor, vertexColor, vertexColor);
+            vert.color = (LinearAlgebra::vec3){vertexColor, vertexColor, vertexColor};
             vertices.push_back(vert);
             if (cornerIndex == 2){
                 auto &v0 = vertices[vertices.size()-1 - 2];

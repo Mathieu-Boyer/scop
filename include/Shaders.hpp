@@ -6,6 +6,7 @@
 
 #ifdef __linux__
 #include <GL/gl.h>
+#include "utils.hpp"
 #endif
 #include <string>
 #include <fstream>
@@ -25,7 +26,7 @@ private:
     std::string fragmentShaderFileContent;
 
 public:
-    Shaders(const std::string &vertexShaderPath, const std::string &fragmentShaderPath);
+    Shaders(const std::string vertexShaderPath, const std::string fragmentShaderPath);
     ~Shaders();
     Shaders(const Shaders&) = delete;
     Shaders& operator=(const Shaders&) = delete;

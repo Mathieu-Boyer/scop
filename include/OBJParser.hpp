@@ -46,7 +46,7 @@ class OBJParser
         void handleFaces();
         void handleTextureCoordinates();
     public:
-        OBJParser(const std::string &filePath);
+        OBJParser(const std::string filePath);
         ~OBJParser();
 
         OBJ &getObjData();
