@@ -2,13 +2,17 @@
 #include "OBJParser.hpp"
 #include "LinearAlgebra.hpp"
 
-int main (){
+int main (int argc, char *argv[]){
+    if (argc <= 1){
+        std::cerr << "Arguments can't be empty.\n";
+        return 1;
+    }
+    std::string texture("textures/wood.ppm");
+    if (argc == 3)
+        texture = argv[2];
+    
+    const std::string model(argv[1]);
     try {
-
-
-        const std::string model("models/42.obj");
-        const std::string texture("textures/wood.ppm");
-        const std::string windowName("Scop");
         GLApp app(800, 800, model, texture);
         app.render();
     } catch (std::exception &err){
