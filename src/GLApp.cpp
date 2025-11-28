@@ -63,7 +63,6 @@ GLApp::GLApp(unsigned int width, unsigned int height, const std::string &objPath
         glfwMakeContextCurrent(window);
         glEnable(GL_DEPTH_TEST);
 
-
 }
 
 void GLApp::render(){
