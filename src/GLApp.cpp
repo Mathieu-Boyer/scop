@@ -9,6 +9,11 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     (void)mods;
     Scene *scene = static_cast<Scene *>(glfwGetWindowUserPointer(window));
 
+
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS)
+        glfwSetWindowShouldClose(window ,true);
+
+
     if (key == GLFW_KEY_T && action == GLFW_PRESS){
         scene->transitionIsEnabled = true;
         scene->textureIsOff = !scene->textureIsOff;
