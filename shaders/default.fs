@@ -23,7 +23,5 @@ void main(){
     vec3 normal = normalize(myNormal);
     vec3 lightDirection = normalize(lightPosition - currentPosition);
     float diffuse = max(dot(normal, lightDirection), .0);
-
-
     fragColor = mix(myColor, tex , progress) * lightColor * (diffuse + .3);
 }

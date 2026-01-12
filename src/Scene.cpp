@@ -1,6 +1,5 @@
 #include "Scene.hpp"
 
-
 Scene::Scene(const std::string &objectPath, const std::string &texturePath) :
     object(objectPath) , lightingObject("models/basic.obj"),
     shader("shaders/default.vs", "shaders/default.fs"), lightingShader("shaders/lighting.vs", "shaders/lighting.fs"),
@@ -14,7 +13,7 @@ Scene::Scene(const std::string &objectPath, const std::string &texturePath) :
     projection = camera.getProjectionMatrix();
     meshInstance.getTransform().scale = object.scalingVector();
     lightCube.getTransform().scale = {.1,.1,.1};
-    lightCube.getTransform().translation = {-1, 1, 1};
+    lightCube.getTransform().translation = {-1, 1, 2};
     speed = 50;
 }
 

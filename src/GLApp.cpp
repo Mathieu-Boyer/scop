@@ -9,6 +9,10 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
     (void)mods;
     Scene *scene = static_cast<Scene *>(glfwGetWindowUserPointer(window));
 
+    if (key == GLFW_KEY_ESCAPE && action == GLFW_PRESS){
+        glfwSetWindowShouldClose(window, true);
+    }
+
     if (key == GLFW_KEY_T && action == GLFW_PRESS){
         scene->transitionIsEnabled = true;
         scene->textureIsOff = !scene->textureIsOff;
@@ -39,26 +43,20 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 
 
 GLApp::GLApp(unsigned int width, unsigned int height, const std::string &objPath, const std::string &_objTexture) : objPath(objPath), objTexture(_objTexture)  {
-    std::cout << "----->1\n" ;
+    glfwInit();
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-        glfwInit();
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-        glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-        glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    std::cout << "----->2\n" ;
+    const char* appName = "Scop";
+    window = glfwCreateWindow(width, height, appName, NULL, NULL);
+    if (!window){
+        std::cerr << "Window couldn't be opened\n";
+        glfwTerminate();
+    }
 
-
-        window = glfwCreateWindow(width, height, "Scope", NULL, NULL);
-    std::cout << "----->3\n" ;
-
-        if (!window){
-            std::cerr << "Window couldn't be openned\n";
-            glfwTerminate();
-        }
-        glfwMakeContextCurrent(window);
-        glEnable(GL_DEPTH_TEST);
-
-
+    glfwMakeContextCurrent(window);
+    glEnable(GL_DEPTH_TEST);
 }
 
 void GLApp::render(){
@@ -70,12 +68,9 @@ void GLApp::render(){
     float g = 30;
     float b = 35;
     while(!glfwWindowShouldClose(window)){
-
         glfwPollEvents();
         glClearColor(r/255, g/255, b/255, 1.0);
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
         scene.render();
         glfwSwapBuffers(window);
     }
