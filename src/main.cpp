@@ -13,7 +13,7 @@ int main (int argc, char *argv[]){
     
     const std::string model(argv[1]);
     try {
-        GLApp app(800, 800, model, texture);
+        GLApp app(1080, 1080 , model, texture);
         app.render();
     } catch (std::exception &err){
         std::cerr << err.what() << "\n";
