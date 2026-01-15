@@ -26,6 +26,7 @@ private:
 
     LinearAlgebra::mat4 view;
     LinearAlgebra::mat4 projection;
+
     int speed;
     float currentProgress = 0;
 
@@ -33,9 +34,9 @@ public:
 
     void transitionIncrementation(float factor);
 
-    std::array<int, 2> keyFlags{};
+    std::array<int, 3> keyFlags{};
 
-    void updateLightPosition(int currentFlag);
+    void updateObjectPosition(int currentFlag);
 
     bool textureIsOff = true;
     bool textureColorAreInverted = false;
@@ -45,6 +46,7 @@ public:
     void invertTextureColors();
     void waves();
 
+    bool lightSelected;
     Renderable &getLightCube() { return lightCube;};
     const Renderable &getLightCube() const { return lightCube;};
     Scene(const std::string &objectPath, const std::string &texturePath);

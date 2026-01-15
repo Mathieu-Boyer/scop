@@ -6,9 +6,9 @@ Scene::Scene(const std::string &objectPath, const std::string &texturePath) :
     texture(texturePath),
     mesh(object.getVertices(), object.getObjData()), cube(lightingObject.getVertices(), lightingObject.getObjData()),
     camera((LinearAlgebra::vec3){0.0f, 0.0f, 10.f}),
-    lightCube(cube, NULL), meshInstance(mesh, &texture)
+    lightCube(cube, NULL), meshInstance(mesh, &texture),
+    lightSelected(false)
 {
-    // (void) texturePath;
     view = camera.getViewMatrix();
     projection = camera.getProjectionMatrix();
     meshInstance.getTransform().scale = object.scalingVector();
@@ -50,18 +50,23 @@ void Scene::textureTransition(){
         transitionIncrementation(-0.02);
 }
 
-void Scene::updateLightPosition(int currentFlag){
-    LinearAlgebra::vec3 &lightPosition = lightCube.getTransform().translation;
+void Scene::updateObjectPosition(int currentFlag){
 
+    LinearAlgebra::vec3 &object = lightSelected ? lightCube.getTransform().translation : meshInstance.getTransform().translation;
     if (currentFlag == GLFW_KEY_LEFT)
-        lightPosition.x -= .05;
+        object.x -= .05;
     if (currentFlag == GLFW_KEY_RIGHT)
-        lightPosition.x += .05;
+        object.x += .05;
 
     if (currentFlag == GLFW_KEY_UP)
-        lightPosition.y += .05;
+        object.y += .05;
     if (currentFlag == GLFW_KEY_DOWN)
-        lightPosition.y -= .05;
+        object.y -= .05;
+    
+    if (currentFlag == GLFW_KEY_LEFT_SHIFT)
+        object.z += .05;
+    if (currentFlag == GLFW_KEY_LEFT_CONTROL)
+        object.z -= .05;
 }
 
 
@@ -71,7 +76,7 @@ void Scene::render() {
             textureTransition();
 
         for (auto &arrowFlag : keyFlags)
-            updateLightPosition(arrowFlag);
+            updateObjectPosition(arrowFlag);
 
         float time = glfwGetTime();
         shader.use();
