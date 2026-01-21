@@ -10,7 +10,7 @@ int main (int argc, char *argv[]){
             throw std::runtime_error("You must at least provide a 3D model.");
 
         const std::string model(argv[1]);
-        std::string texture("textures/wood.ppm");
+        std::string texture("textures/kitty.ppm");
 
         if (argc == 3)
             texture = argv[2];
@@ -26,6 +26,7 @@ int main (int argc, char *argv[]){
 
         GLApp app(1080, 1080 , model, texture);
         app.render();
+
     } catch (std::exception &err){
 
         std::cerr << err.what() << "\n";
