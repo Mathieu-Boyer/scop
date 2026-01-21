@@ -2,19 +2,11 @@
 // #include <GLES3/gl3.h>
 
 Mesh::Mesh(const std::vector<vertex> &vertices, OBJ objData) : vertexCount(vertices.size()), objData(objData){
-    // std::cout << "|||||||||||||||||||||||||||||||||||||||||||||||||||||||\n";
-    // for (auto &v : vertices){
-    //     std::cout << v.position.x << " " << v.position.y << " " << v.position.z <<  "            " << v.textureCoordinates.x << " " << v.textureCoordinates.y << "\n";
-
-    // }
-
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
-    glGenBuffers(1, &VEO);
 
     glBindVertexArray(VAO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, VEO);
 
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertex) * vertexCount, (void*)&vertices[0], GL_STATIC_DRAW);
 

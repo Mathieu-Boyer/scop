@@ -23,8 +23,8 @@ class Mesh
         size_t vertexCount = 0;
         GLuint VAO = 0;
         GLuint VBO = 0;
-        GLuint VEO = 0;
         OBJ objData;
+        
     public:
         Mesh(const std::vector<vertex> &vertices, OBJ objedata);
         Mesh(Mesh &other) = delete;

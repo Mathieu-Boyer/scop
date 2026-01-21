@@ -46,16 +46,18 @@ void keyCallback(GLFWwindow *window, int key, int scancode, int action, int mods
 
 
 GLApp::GLApp(unsigned int width, unsigned int height, const std::string &objPath, const std::string &_objTexture) : objPath(objPath), objTexture(_objTexture)  {
+    (void)width;
+    (void)height;
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
     const char* appName = "Scop";
-    window = glfwCreateWindow(width, height, appName, NULL, NULL);
+    window = glfwCreateWindow(width, height, appName, nullptr, nullptr);
+
     if (!window){
-        std::cerr << "Window couldn't be opened\n";
-        glfwTerminate();
+        throw std::runtime_error("Window couldn't be opened.");
     }
 
     glfwMakeContextCurrent(window);
@@ -81,6 +83,7 @@ void GLApp::render(){
 
 GLApp::~GLApp()
 {
-    glfwDestroyWindow(window);
+    if (window)
+        glfwDestroyWindow(window);
     glfwTerminate();
 }
