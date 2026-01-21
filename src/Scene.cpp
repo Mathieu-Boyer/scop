@@ -1,7 +1,7 @@
 #include "Scene.hpp"
 
 Scene::Scene(const std::string &objectPath, const std::string &texturePath) :
-    object(objectPath) , lightingObject("models/basic.obj"),
+    object(objectPath) , lightingObject("models/cube.obj"),
     shader("shaders/default.vs", "shaders/default.fs"), lightingShader("shaders/lighting.vs", "shaders/lighting.fs"),
     texture(texturePath),
     mesh(object.getVertices(), object.getObjData()), cube(lightingObject.getVertices(), lightingObject.getObjData()),
