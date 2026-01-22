@@ -86,6 +86,8 @@ OBJParser::OBJParser(const std::string filePath)
 
 void OBJParser::handlePositions(){
     auto &verts = _data["v"];
+    if (verts.empty())
+        throw std::runtime_error("Can't draw faces with empty verticies.");
     objData.positions.reserve(verts.size());
 
     for (const auto &line : verts) {
@@ -131,8 +133,8 @@ void OBJParser::handlePositions(){
 
 void OBJParser::handleNormals(){
     auto &vn = _data["vn"];
-    objData.normals.reserve(vn.size());
 
+    objData.normals.reserve(vn.size());
     for (const auto &line : vn) {
         std::string_view sv(line);
         float xyz[3];

@@ -15,9 +15,9 @@ struct Face {
 };
 
 struct OBJ {
-    std::vector<LinearAlgebra::vec3> positions;
-    std::vector<LinearAlgebra::vec3> normals;
-    std::vector<LinearAlgebra::vec2> textureCoordinates;
+    std::vector<LinearAlgebra::vec3> positions{};
+    std::vector<LinearAlgebra::vec3> normals{};
+    std::vector<LinearAlgebra::vec2> textureCoordinates{};
     std::vector<Face> faces;
     std::vector<unsigned int> drawIndices;
 };

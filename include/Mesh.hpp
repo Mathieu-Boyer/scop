@@ -24,7 +24,7 @@ class Mesh
         GLuint VAO = 0;
         GLuint VBO = 0;
         OBJ objData;
-        
+
     public:
         Mesh(const std::vector<vertex> &vertices, OBJ objedata);
         Mesh(Mesh &other) = delete;
