@@ -192,7 +192,7 @@ void OBJParser::handleFaces(){
 
                 if (slash > p) {
                     int idx = std::atoi(token.substr(p, slash - p).data());
-                    vert[part] = idx - 1;
+                    vert.at(part) = idx - 1;
                 }
                 p = slash + 1;
                 part++;
@@ -264,11 +264,11 @@ void OBJParser::createVertices() {
     for (const auto &face : objData.faces) {
         float faceBaseColor = 0.3f + (static_cast<float>(faceIndex % 50) / 100.0f);
         unsigned int cornerIndex = 0;
-        // unsigned int faceStart = 0;
+
         for (const auto &corner : face.corners) {
             vertex vert;
             float vertexColor = faceBaseColor + ((cornerIndex / 10.0f) - 0.1f);
-            vert.position = objData.positions[corner[0]];
+            vert.position = objData.positions.at(corner[0]);
 
             if (corner[1] >= 0 && corner[1] < static_cast<int>(objData.textureCoordinates.size()))
                 vert.textureCoordinates = objData.textureCoordinates[corner[1]];

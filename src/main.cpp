@@ -7,7 +7,7 @@ int main (int argc, char *argv[]){
     try {
 
         if (argc <= 1)
-            throw std::runtime_error("You must at least provide a 3D model.");
+            throw std::runtime_error("Usage : ./scop model.obj [texture.ppm] (default texture = kitty.ppm)");
 
         const std::string model(argv[1]);
         std::string texture("textures/kitty.ppm");
@@ -29,7 +29,7 @@ int main (int argc, char *argv[]){
 
     } catch (std::exception &err){
 
-        std::cerr << err.what() << "\n";
+        std::cerr << "Caught error : " << err.what() << "\n";
         return 1;
     }
 }
